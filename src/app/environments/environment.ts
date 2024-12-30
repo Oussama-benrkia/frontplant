@@ -30,7 +30,6 @@ export const environment = {
       commentaire: '/api/articles/commentaire/',
       listArticles: '/api/articles/list'
     },
-  
     authController: {
       register: '/auth/register',
       refreshToken: '/auth/refresh',

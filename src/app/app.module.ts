@@ -8,7 +8,8 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { AuthService } from './services/auth.service';
+import {  HttpClientModule, provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,10 +23,12 @@ import { CommonModule } from '@angular/common';
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    CommonModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    provideHttpClient(),
+    AuthService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
