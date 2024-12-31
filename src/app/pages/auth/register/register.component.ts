@@ -91,8 +91,13 @@ export class RegisterComponent implements OnInit {
     // Call the register method from AuthService
     this.authservice.register(user.prenom, user.nom, user.email, user.password, user.file).subscribe({
       next: (response) => {
-        localStorage.setItem('accessToken', response.token)
-        localStorage.setItem('refreshToken', response.refreshToken);
+        this.authservice.loadProfile(response.token,response.refreshToken);
+        
+        if(this.authservice.role==="ADMIN"){
+          this.router.navigate(['admin']);
+        }else{
+          this.router.navigate(['user']);
+        }
         },
       error: (error) => {
         console.error('Error during registration:', error);

@@ -34,11 +34,10 @@ export class LoginComponent implements OnInit{
         next: (response) => {
           this.authservice.loadProfile(response.token,response.refreshToken);
           
-          if(this.authservice.role==="Admin"){
-            this.router.navigate(['admin']);
-          }else{
+          if(this.authservice.role==="USER"){
             this.router.navigate(['user']);
-
+          }else{
+            this.router.navigate(['admin']);
           }
           },
         error: (err) => {

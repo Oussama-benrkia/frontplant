@@ -21,26 +21,20 @@ export class AppComponent {
             next: (response) => {
               this.authService.loadProfile(response.token,response.refreshToken);
           
-              if(this.authService.role==="Admin"){
-                this.router.navigate(['admin']);
-              }else{
+              if(this.authService.role==="USER"){
                 this.router.navigate(['user']);
-    
-              }            },
+              }           },
             error: () => {
               this.router.navigate(['/auth/login']);
             }
           });
         } else {
-          // Both tokens are expired, navigate to login
           this.router.navigate(['/auth/login']);
         }
       }else{
         if (this.authService.role === 'USER') {
           this.router.navigate(['/user']);
-        } else {
-          this.router.navigate(['/admin']);
-        }
+        } 
       }
     }else{
       this.router.navigate(['/auth/login']);
