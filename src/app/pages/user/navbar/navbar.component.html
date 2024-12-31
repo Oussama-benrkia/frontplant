@@ -1,0 +1,35 @@
+<div class="d-flex flex-column vh-100 bg-white text-success p-4" style="width: 250px;">
+    <!-- Logo and Title -->
+    <div class="d-flex align-items-center mb-4">
+      <i class="bi bi-heart me-2"></i>
+      <h1 class="h5 mb-0 fw-bold">Medicinal Plants</h1>
+    </div>
+  
+    <!-- Navigation Links -->
+    <nav class="d-flex flex-column flex-grow-1">
+      <ul class="nav flex-column">
+        <li *ngFor="let item of navItems.slice(0, navItems.length - 1)" class="nav-item mb-2">
+          <a
+            (click)="item.action()"
+            class="nav-link text-success d-flex align-items-center rounded py-2 px-3"
+          >
+            <i class="bi me-3" [class]="'bi bi-' + item.icon"></i>
+            <span class="fw-bold">{{ item.label }}</span>
+          </a>
+        </li>
+      </ul>
+      <!-- Last Item -->
+      <ul class="nav flex-column mt-auto">
+        <li class="nav-item">
+          <a
+            (click)="navItems[navItems.length - 1].action()"
+            class="nav-link text-success d-flex align-items-center rounded py-2 px-3"
+          >
+            <i class="bi me-3" [class]="'bi bi-' + navItems[navItems.length - 1].icon"></i>
+            <span class="fw-bold">{{ navItems[navItems.length - 1].label }}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  

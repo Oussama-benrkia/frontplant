@@ -31,11 +31,18 @@ export class LoginComponent implements OnInit{
       console.log("Logging in...");
 
       this.authservice.login(email, password).subscribe({
-        next: (value) => {
-          console.log(value);
-        },
+        next: (response) => {
+          this.authservice.loadProfile(response.token,response.refreshToken);
+          
+          if(this.authservice.role==="Admin"){
+            this.router.navigate(['admin']);
+          }else{
+            this.router.navigate(['user']);
+
+          }
+          },
         error: (err) => {
-          console.log(err);
+          this.formLogin.markAllAsTouched(); // Mark all fields as touched to show validation errors
         }
       });
     } else {

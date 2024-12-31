@@ -10,13 +10,19 @@ import { DashboardComponent } from './pages/admin/dashboard/dashboard.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import {  HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { HomeComponent } from './pages/user/home/home.component';
+import { LayoutWithNavbarComponent } from './pages/user/layout-with-navbar/layout-with-navbar.component';
+import { NavbarComponent } from './pages/user/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    HomeComponent,
+    LayoutWithNavbarComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
