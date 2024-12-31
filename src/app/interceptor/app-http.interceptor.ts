@@ -1,20 +1,25 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { AuthService } from '../services/auth.service';
 
 export const appHttpInterceptor: HttpInterceptorFn = (req, next) => {
-  const authService = inject(AuthService);
 
-  // Check if the request URL does not match authentication endpoints
-  if (!req.url.includes('/auth/login') && !req.url.includes('/auth/register')) {
-    // Clone the request and add the Authorization header
-    const newRequest = req.clone({
-      headers: req.headers.set('Authorization', 'Bearer ' + authService.accessToken),
-    });
+  if (
+    !req.url.includes('/auth/login') &&
+    !req.url.includes('/auth/register') &&
+    !req.url.includes('/auth/refresh')
+  ) {
+    console.log("Adding Authorization header to request");
 
-    return next(newRequest);
+    // Get the token from localStorage
+    const accessToken: string | null = localStorage.getItem("accessToken");
+    console.log(accessToken)
+    if (accessToken) {
+      const newRequest = req.clone({
+        headers: req.headers.set('Authorization', 'Bearer ' + accessToken),
+        withCredentials: true, // Include cookies with the request
+      });
+      return next(newRequest);
+    }
   }
 
-  // For authentication routes, pass the request without modification
   return next(req);
 };

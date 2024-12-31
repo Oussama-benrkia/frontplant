@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent  {
-  constructor(private router: Router) {}
+  constructor(private router: Router,private authService:AuthService) {}
 
   
   navItems = [
@@ -20,21 +21,30 @@ export class NavbarComponent  {
   
 
   logout() {
-    this.router.navigate(['auth/login']);
+    this.authService.logout().subscribe(
+      () => {
+        localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+        this.router.navigate(['auth/login']);
+      },
+      (error) => {
+        console.error('Logout failed:', error);
+      }
+    );
   }
 
   home() {
-    this.router.navigate(['articles']);
+    console.log("home")
   }
 
   plants() {
-    this.router.navigate(['plants']);
+    console.log("plantes")
   }
 
   profile() {
-    this.router.navigate(['profile']);
+    console.log("profile")
   }
   createArticle() {
-    this.router.navigate(['createarticle']);
+    console.log("profile")
   }
 }

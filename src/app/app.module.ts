@@ -9,10 +9,11 @@ import { RegisterComponent } from './pages/auth/register/register.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
-import {  HttpClientModule, provideHttpClient } from '@angular/common/http';
+import {  HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HomeComponent } from './pages/user/home/home.component';
 import { LayoutWithNavbarComponent } from './pages/user/layout-with-navbar/layout-with-navbar.component';
 import { NavbarComponent } from './pages/user/navbar/navbar.component';
+import { appHttpInterceptor } from './interceptor/app-http.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,8 +33,12 @@ import { NavbarComponent } from './pages/user/navbar/navbar.component';
     ReactiveFormsModule,
   ],
   providers: [
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([appHttpInterceptor]) // Ajout de l'intercepteur fonctionnel
+
+    ),
     AuthService,
+  
   ],
   bootstrap: [AppComponent]
 })

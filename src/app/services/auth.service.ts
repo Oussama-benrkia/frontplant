@@ -12,7 +12,13 @@ export class AuthService {
   accessToken: string = ''; // Changed type to string
   role: string | undefined; // Use string for role, optional with `undefined`
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const storedToken = localStorage.getItem('accessToken');
+    const storedRefreshToken = localStorage.getItem('refreshToken');
+    if (storedToken && storedRefreshToken) {
+      this.loadProfile(storedToken, storedRefreshToken);
+    }
+  }
 
   /**
    * Login user with email and password
@@ -73,7 +79,15 @@ export class AuthService {
       options
     );
   }
-
+  public logout():Observable<any>
+  {
+    this.isAuthenticated = false;
+    this.accessToken = '';
+    this.role = undefined;
+    return this.http.get(
+      `${environment.apiUrl}${environment.authController.logout}`// Use template literals
+    )
+  }
   public loadProfile(token: string, refreshToken: string): void {
     // Store tokens in local storage
     localStorage.setItem('accessToken', token);
@@ -83,7 +97,6 @@ export class AuthService {
     this.accessToken = token;
     const decodedToken: any = jwtDecode(this.accessToken);
     console.log('Decoded JWT:', decodedToken);
-
     this.role = decodedToken.role; 
   }
   public isAccessTokenExpired(): boolean {
@@ -101,5 +114,11 @@ export class AuthService {
     const decodedToken: any = jwtDecode(refreshToken);
     const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
     return decodedToken.exp < currentTime; // Compare expiration time with current time
+  }
+  public refreshtoken(token:String):Observable<any>
+  {
+    return this.http.post(
+      `${environment.apiUrl}${environment.authController.refreshToken}`,{"token":token}// Use template literals
+    )
   }
 }
