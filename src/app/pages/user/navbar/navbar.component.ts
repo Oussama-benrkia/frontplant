@@ -12,7 +12,6 @@ export class NavbarComponent  {
 
   
   navItems = [
-    { icon: 'house', label: 'Home', action: () => this.home() },
     { icon: 'flower2', label: 'Plants', action: () => this.plants() },
     { icon: 'person-circle', label: 'Profile', action: () => this.profile() },
     { icon: 'file-earmark-plus', label: 'New Article', action: () => this.createArticle() },
