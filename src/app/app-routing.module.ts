@@ -29,7 +29,7 @@ const routes: Routes = [
       { path: 'plants/search', component: PlantSearchComponent },
       { path: 'articles', component: ArticleListComponent },
       { path: 'articles/:id', component: ArticleDetailComponent },
-      {path:'profile',component:ProfileComponent}
+      {path:'profile',component:ProfileComponent},
        { path: 'articles/search', component: ArticleSearchComponent } // Add ArticleSearchComponent Route
     ]
   },
