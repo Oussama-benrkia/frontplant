@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="mb-3 d-flex justify-content-between align-items-center">
+        <form [formGroup]="filterForm" (ngSubmit)="filterPlants()" class="d-flex align-items-center">
+         <select class="form-select me-2" formControlName="searchType" id="searchType">
+           <option value="name">Name</option>
+           <option value="maladies">Disease</option>
+          </select>
+           <input type="text" class="form-control me-2"  placeholder="Search..." formControlName="searchTerm"/>
+            <button type="submit" class="btn btn-success">Filter</button>
+         </form>
+   </div>
+   <div class="row">
+       <div class="col-md-4 mb-4" *ngFor="let plant of pagedPlants">
+          <div (click)="navigateToDetails(plant.id)" style="cursor: pointer;">
+               <app-plant-card [plant]="plant"></app-plant-card>
+          </div>
+       </div>
+   </div>
+   <div class="d-flex justify-content-center mt-4">
+     <button
+       class="btn btn-outline-secondary me-2"
+       [disabled]="currentPage === 1"
+       (click)="changePage(currentPage - 1)">
+         Previous
+     </button>
+     <span>Page {{ currentPage }} of {{ totalPages }}</span>
+     <button
+       class="btn btn-outline-secondary ms-2"
+       [disabled]="currentPage === totalPages"
+       (click)="changePage(currentPage + 1)">
+           Next
+     </button>
+ </div>
+</div>

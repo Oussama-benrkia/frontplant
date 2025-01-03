@@ -10,15 +10,15 @@ import { AuthService } from '../../../services/auth.service';
 export class NavbarComponent  {
   constructor(private router: Router,private authService:AuthService) {}
 
-  
+
   navItems = [
     { icon: 'house', label: 'Home', action: () => this.home() },
     { icon: 'flower2', label: 'Plants', action: () => this.plants() },
+    { icon: 'book', label: 'Articles', action: () => this.articles() },
     { icon: 'person-circle', label: 'Profile', action: () => this.profile() },
-    { icon: 'file-earmark-plus', label: 'New Article', action: () => this.createArticle() },
     { icon: 'box-arrow-right', label: 'Logout', action: () => this.logout() },
   ];
-  
+
 
   logout() {
     this.authService.logout().subscribe(
@@ -34,12 +34,15 @@ export class NavbarComponent  {
   }
 
   home() {
-    console.log("home")
+    this.router.navigate(['/user'])
   }
 
   plants() {
-    console.log("plantes")
+    this.router.navigate(['/user/plants'])
   }
+  articles() {
+        this.router.navigate(['/user/articles'])
+    }
 
   profile() {
     console.log("profile")

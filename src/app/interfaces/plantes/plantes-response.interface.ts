@@ -9,4 +9,3 @@ export interface PlantesResponse {
     dateCreated: string;
     maladies: string[];
   }
-  
