@@ -1,7 +1,7 @@
 <div class="container mt-5" *ngIf="plant">
     <!-- Reduced image size -->
     <div class="text-center mb-4">
-        <img [src]="plant.image" class="img-fluid rounded shadow-sm" style="max-width: 500px;" alt="{{ plant.name }}">
+        <img   [src]="plant.image ? plant.image : 'assets/default.jpeg'" class="img-fluid rounded shadow-sm" style="max-width: 500px;" alt="{{ plant.name }}">
     </div>
 
     <div class="card shadow-sm border-0 mb-4">

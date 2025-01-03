@@ -1,5 +1,5 @@
 <div class="card shadow-lg border-0 rounded-4 overflow-hidden " >
-  <img src="{{article.image}}"  class="card-img-top object-fit-cover" alt="{{article.title}}" style="height: 200px;">
+  <img  [src]="article.image ? article.image : 'assets/default.jpeg'"  class="card-img-top object-fit-cover" alt="{{article.title}}" style="height: 200px;">
   <div class="card-body text-center bg-light">
       <h5 class="card-title fw-bold text-success">{{article.title}}</h5>
       <p class="card-text text-muted">{{article.content | slice:0:30}}...</p>

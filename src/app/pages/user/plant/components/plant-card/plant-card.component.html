@@ -1,5 +1,5 @@
 <div class="card shadow-lg border-0 rounded-4 overflow-hidden" (click)="nav()">
-  <img src="{{plant.image}}" class="card-img-top object-fit-cover" alt="{{plant.name}}" style="height: 200px;">
+  <img   [src]="plant.image ? plant.image : 'assets/default.jpeg'"  class="card-img-top object-fit-cover" alt="{{plant.name}}" style="height: 200px;">
   <div class="card-body text-center bg-light">
     <h5 class="card-title fw-bold text-success">{{plant.name}}</h5>
     <p class="card-text text-muted">{{plant.description | slice:0:50}}...</p>
