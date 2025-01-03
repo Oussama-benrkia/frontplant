@@ -1,0 +1,12 @@
+/*  styles for search component */
+.container {
+  margin-top: 20px;
+}
+.btn-outline-success{
+    border: 1px solid #28a745;
+  color: #28a745;
+}
+.btn-outline-success:hover {
+  background-color: #28a745;
+  color: white;
+}

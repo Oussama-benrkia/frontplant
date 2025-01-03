@@ -1,0 +1,15 @@
+/* You can add styling if needed*/
+
+.container {
+  margin-top: 20px;
+}
+
+.btn-outline-secondary {
+  border: 1px solid #6c757d;
+  color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: white;
+}

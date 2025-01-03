@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let article of pagedArticles">
+           <div (click)="navigateToDetails(article.id)" style="cursor: pointer;">
+              <app-article-card [article]="article"></app-article-card>
+           </div>
+      </div>
+  </div>
+  <div class="d-flex justify-content-center mt-4">
+      <button
+          class="btn btn-outline-secondary me-2"
+          [disabled]="currentPage === 1"
+          (click)="changePage(currentPage - 1)">
+              Previous
+      </button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button
+          class="btn btn-outline-secondary ms-2"
+          [disabled]="currentPage === totalPages"
+          (click)="changePage(currentPage + 1)">
+              Next
+      </button>
+  </div>
+</div>
