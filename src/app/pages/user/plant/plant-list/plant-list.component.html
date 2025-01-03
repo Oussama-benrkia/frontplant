@@ -3,7 +3,7 @@
   <div class="card shadow-sm mb-4">
     <div class="card-body">
       <form [formGroup]="filterForm" (ngSubmit)="filterPlants()" class="row g-3 align-items-center">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <select class="form-select" formControlName="searchType" id="searchType">
             <option value="name">Name</option>
             <option value="maladies">Disease</option>
@@ -14,6 +14,9 @@
         </div>
         <div class="col-md-3">
           <button type="submit" class="btn btn-success w-100">Filter</button>
+        </div>
+        <div class="col-md-1">
+          <button type="submit" class="btn btn-secondary w-100">Clear</button>
         </div>
       </form>
     </div>

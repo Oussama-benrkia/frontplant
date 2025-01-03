@@ -1,5 +1,17 @@
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">{{article.title}}</h5>
-  </div>
+<div class="card shadow-lg border-0 rounded-4 overflow-hidden " >
+  <img src="{{article.image}}"  class="card-img-top object-fit-cover" alt="{{article.title}}" style="height: 200px;">
+  <div class="card-body text-center bg-light">
+      <h5 class="card-title fw-bold text-success">{{article.title}}</h5>
+      <p class="card-text text-muted">{{article.content | slice:0:30}}...</p>
+      <button class="btn btn-success w-100 mt-auto">View Details</button>
+    </div>
 </div>
+
+<style>
+  .card:hover {
+    transform: translateY(-10px);
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+  }
+  
+  </style>

@@ -80,8 +80,10 @@ export class ArticleDetailComponent implements OnInit {
     }
     postComment() {
         if (this.commentForm.valid) {
-            const commentData: CommentaireRequest = this.commentForm.value
-            this.articleService.postComments(this.articleId, commentData).subscribe({
+            const commentData: CommentaireRequest = {
+                commentaire:this.commentForm.value.comment
+            };
+                        this.articleService.postComments(this.articleId, commentData).subscribe({
                 next: (comment) => {
                      this.comments = [...this.comments,comment]
                     this.commentLikes.push(false);

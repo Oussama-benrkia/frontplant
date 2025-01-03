@@ -66,32 +66,55 @@
     </div>
 
     <!-- Comments Section -->
-    <div class="container mt-4">
-        <h4>Comments:</h4>
-        <form [formGroup]="commentForm" (ngSubmit)="postComment()">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" formControlName="comment" placeholder="Add a comment" />
-                <button class="btn btn-success" type="submit">Post</button>
-            </div>
-        </form>
-
-        <div *ngFor="let comment of comments" class="comment-card">
-            <div class="comment-header">
-                <i class="bi bi-person-circle comment-icon"></i>
-                <span class="comment-name">{{ comment.name }}</span>
-                <p class="comment-date ms-auto">Posted on: {{ comment.date }}</p>
-            </div>
-            <p class="comment-text">{{ comment.commentaire }}</p>
-        </div>
-    </div>
+    
 
     <!-- Recommendations Section -->
     <div class="container mt-4">
-        <h4>Recommendations</h4>
+        <h4 class="text-success fw-bold">🌿  recommendation :</h4>
         <div class="row g-4">
             <div class="col-md-4" *ngFor="let recommended of recommendedPlants">
                 <app-plant-card [plant]="recommended"></app-plant-card>
             </div>
         </div>
     </div>
+    <div class="container mt-5">
+        <h4 class="text-success fw-bold">💬 Commentaires :</h4>
+        <!-- Formulaire de commentaire -->
+        <form [formGroup]="commentForm" (ngSubmit)="postComment()" class="mt-3 mb-3">
+            <div class="input-group">
+                <input type="text" class="form-control" formControlName="comment" placeholder="Écrire un commentaire..." />
+                <button type="submit" class="btn btn-success">Poster</button>
+            </div>
+        </form>
+
+        <!-- Liste des commentaires -->
+        <div class="mt-4" *ngFor="let comment of comments" class="comment-card p-3 bg-white rounded shadow-sm">
+            <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-person-circle text-primary fs-4 me-2"></i>
+                <span class="fw-bold">{{ comment.name }}</span>
+                <p class="text-muted ms-auto mb-0">Posté le : {{ comment.date }}</p>
+            </div>
+            <p class="comment-text mt-2">{{ comment.commentaire }}</p>
+        </div>
+    </div>
 </div>
+<style>
+    .comment-card:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease-in-out;
+        border: 1px solid #00ff48;
+    }
+    .plant-card-hover:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease-in-out;
+    }
+    .card-body.bg-primary {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .comment-text {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+</style>
