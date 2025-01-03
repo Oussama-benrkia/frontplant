@@ -77,4 +77,8 @@ export class ArticleListComponent implements OnInit {
         }
          this.currentPage = 1;
     }
+    clearFilters() {
+        this.filterForm.reset({ searchTerm: '', searchType: 'Title' });
+        this.getArticle();
+    }
 }
