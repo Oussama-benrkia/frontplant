@@ -11,6 +11,7 @@ import { PlantDetailComponent } from './pages/user/plant/plant-detail/plant-deta
 import { PlantSearchComponent } from './pages/user/plant/plant-search/plant-search.component';
 import { ArticleListComponent } from './pages/user/article/article-list/article-list.component';
 import { ArticleDetailComponent } from './pages/user/article/article-detail/article-detail.component';
+import { ProfileComponent } from './pages/user/profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -26,7 +27,8 @@ const routes: Routes = [
       { path: 'plants/:id', component: PlantDetailComponent },
       { path: 'plants/search', component: PlantSearchComponent },
       { path: 'articles', component: ArticleListComponent },
-      { path: 'articles/:id', component: ArticleDetailComponent }
+      { path: 'articles/:id', component: ArticleDetailComponent },
+      {path:'profile',component:ProfileComponent}
     ]
   },
   {path:'admin',component:DashboardComponent,canActivate:[authenticationGuard]}

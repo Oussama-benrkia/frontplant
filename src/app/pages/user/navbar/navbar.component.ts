@@ -45,7 +45,7 @@ export class NavbarComponent  {
     }
 
   profile() {
-    console.log("profile")
+    this.router.navigate(['/user/profile'])
   }
   createArticle() {
     console.log("profile")

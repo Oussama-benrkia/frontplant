@@ -1,0 +1,79 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <div class="profile-image-wrapper">
+      <img [src]="user?.image" alt="Profile Picture" class="profile-image" />
+    </div>
+    <h2>{{ user?.nom }} {{ user?.prenom }}</h2>
+    <p class="profile-role">{{ user?.role }}</p>
+  </div>
+
+  <div class="profile-details">
+    <form (ngSubmit)="onSubmit()" class="form">
+      <div class="form-field">
+        <label for="prenom" class="form-label">First Name</label>
+        <input
+          type="text"
+          [(ngModel)]="userData.prenom"
+          [disabled]="isDisabled"
+          name="prenom"
+          class="form-control"
+          id="prenom"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="nom" class="form-label">Last Name</label>
+        <input
+          type="text"
+          [(ngModel)]="userData.nom"
+          [disabled]="isDisabled"
+          name="nom"
+          class="form-control"
+          id="nom"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          [(ngModel)]="userData.email"
+          [disabled]="isDisabled"
+          name="email"
+          class="form-control"
+          id="email"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="file" class="form-label">Profile Picture</label>
+        <input
+          type="file"
+          (change)="onFileChange($event)"
+          [disabled]="isDisabled"
+          name="file"
+          class="form-control"
+          id="file"
+        />
+      </div>
+
+      <div class="form-field" *ngIf="!isDisabled">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          [(ngModel)]="userData.password"
+          name="password"
+          class="form-control"
+          id="password"
+          required
+        />
+      </div>
+
+      <div class="form-actions">
+        <button *ngIf="!isDisabled" type="submit" class="btn btn-save">Save</button>
+        <button *ngIf="!isDisabled" type="button" (click)="onCancel()" class="btn btn-cancel">Cancel</button>
+        <button *ngIf="isDisabled" type="button" (click)="onEdit()" class="btn btn-edit">Edit</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -22,6 +22,7 @@ import { MaladiesService } from './services/maladies.service';
 import { ArticleListComponent } from './pages/user/article/article-list/article-list.component';
 import { ArticleDetailComponent } from './pages/user/article/article-detail/article-detail.component';
 import { ArticleCardComponent } from './pages/user/article/components/article-card/article-card.component';
+import { ProfileComponent } from './pages/user/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ArticleCardComponent } from './pages/user/article/components/article-ca
     PlantCardComponent,
     ArticleListComponent,
     ArticleDetailComponent,
-    ArticleCardComponent
+    ArticleCardComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
