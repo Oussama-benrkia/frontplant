@@ -23,6 +23,7 @@ import { ArticleListComponent } from './pages/user/article/article-list/article-
 import { ArticleDetailComponent } from './pages/user/article/article-detail/article-detail.component';
 import { ArticleCardComponent } from './pages/user/article/components/article-card/article-card.component';
 import { RouterModule } from '@angular/router';
+import { ArticleSearchComponent } from './pages/user/article/article-search/article-search.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { RouterModule } from '@angular/router';
     ArticleListComponent,
     ArticleDetailComponent,
     ArticleCardComponent,
-    ArticleSearchComponent // Add ArticleSearchComponent to declarations
+    ArticleSearchComponent
+     // Add ArticleSearchComponent to declarations
   ],
   imports: [
     BrowserModule,
