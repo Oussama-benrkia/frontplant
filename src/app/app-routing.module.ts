@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
@@ -14,7 +14,7 @@ import { ArticleDetailComponent } from './pages/user/article/article-detail/arti
 import { ArticleSearchComponent } from './pages/user/article/article-search/article-search.component'; // Import ArticleSearchComponent
 
 const routes: Routes = [
-  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/register', component: RegisterComponent },
   {
@@ -22,7 +22,7 @@ const routes: Routes = [
     component: LayoutWithNavbarComponent,
     canActivate: [authenticationGuard],
     children: [
-      { path: '', component: HomeComponent },
+      { path: '', redirectTo:"plants" ,pathMatch:'full'},
       { path: 'plants', component: PlantListComponent },
       { path: 'plants/:id', component: PlantDetailComponent },
       { path: 'plants/search', component: PlantSearchComponent },
@@ -31,11 +31,13 @@ const routes: Routes = [
        { path: 'articles/search', component: ArticleSearchComponent } // Add ArticleSearchComponent Route
     ]
   },
-  {path:'admin',component:DashboardComponent,canActivate:[authenticationGuard]}
+  { path: 'admin', component: DashboardComponent, canActivate: [authenticationGuard] },
+  { path: '**', redirectTo: '/auth/login' } // Gestion des routes inconnues
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+
 })
 export class AppRoutingModule { }

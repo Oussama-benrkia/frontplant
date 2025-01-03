@@ -102,7 +102,10 @@ export class PlantDetailComponent implements OnInit {
 
     postComment() {
         if (this.commentForm.valid) {
-            const commentData: CommentaireRequest = this.commentForm.value
+            const commentData: CommentaireRequest = {
+                commentaire:this.commentForm.value.comment
+            }
+            
             this.plantService.postComments(this.plantId, commentData).subscribe({
                   next: (comment) => {
                       this.comments = [...this.comments, comment];
