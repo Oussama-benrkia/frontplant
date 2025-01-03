@@ -1,0 +1,44 @@
+icleSearchComponent (article-search.component.html):
+
+<div class="container mt-5">
+    <h2>Search Medicinal Articles</h2>
+      <form [formGroup]="searchForm" (ngSubmit)="searchArticle()">
+        <div class="mb-3">
+              <label for="searchType" class="form-label">Search By:</label>
+              <select class="form-select" formControlName="searchType" id="searchType">
+                    <option value="title">Title</option>
+                     <option value="plantName">Plant Name</option>
+                </select>
+           </div>
+        <div class="mb-3">
+            <label for="searchTerm" class="form-label">Search Term</label>
+            <input type="text" class="form-control" id="searchTerm" formControlName="searchTerm" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  <div class="row mt-4">
+        <div class="col-md-4 mb-4" *ngFor="let article of pagedArticles">
+           <div (click)="navigateToDetails(article.id)" style="cursor: pointer;">
+              <app-article-card [article]="article"></app-article-card>
+           </div>
+      </div>
+  </div>
+    <div class="d-flex justify-content-center mt-4"  *ngIf="articles.length > 0">
+        <button
+            class="btn btn-outline-secondary me-2"
+            [disabled]="currentPage === 1"
+            (click)="changePage(currentPage - 1)">
+                Previous
+        </button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button
+            class="btn btn-outline-secondary ms-2"
+            [disabled]="currentPage === totalPages"
+            (click)="changePage(currentPage + 1)">
+                Next
+        </button>
+    </div>
+      <div *ngIf="articles.length === 0 && searchForm.get('searchTerm')?.value">
+        <p>No articles found for your search.</p>
+    </div>
+</div>
