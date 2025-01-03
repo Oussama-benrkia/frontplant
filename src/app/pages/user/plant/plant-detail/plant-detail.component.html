@@ -1,92 +1,97 @@
 <div class="container mt-5" *ngIf="plant">
-  <div class="card mb-3">
-      <img [src]="plant.image" class="card-img-top" alt="{{ plant.name }}">
-      <div class="card-body">
-          <h2 class="card-title">{{ plant.name }}</h2>
-      </div>
-      <div class="container">
-          <div class="row">
-              <div class="col-md-4 mb-4">
-                  <div class="card">
-                      <div class="card-body">
-                          <h4 class="card-title">Description</h4>
-                          <p class="card-text">{{ plant.description }}</p>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-4 mb-4">
-                  <div class="card">
-                      <div class="card-body">
-                          <h4 class="card-title">Usage</h4>
-                          <p class="card-text">{{ plant.utilisation }}</p>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-4 mb-4">
-                  <div class="card">
-                      <div class="card-body">
-                          <h4 class="card-title">Precautions</h4>
-                          <p class="card-text"> {{ plant.precautions }}</p>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-4 mb-4">
-                  <div class="card">
-                      <div class="card-body">
-                          <h4 class="card-title">Region</h4>
-                          <p class="card-text"> {{ plant.region }}</p>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-4 mb-4">
-                  <div class="card">
-                      <div class="card-body">
-                          <h4 class="card-title">Treats</h4>
-                          <ul class="list-group">
-                              <li class="list-group-item" *ngFor="let maladie of plant.maladies"> {{ maladie }}</li>
-                          </ul>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="container">
-          <div class="mt-4">
-              <h4>Comments:</h4>
-              <form [formGroup]="commentForm" (ngSubmit)="postComment()">
-                  <div class="d-flex">
-                      <input type="text" class="form-control me-2" formControlName="comment" placeholder="Add a comment" />
-                      <button type="submit" class="btn btn-success">Post</button>
-                  </div>
-              </form>
-          </div>
-         <div class="mt-2" *ngFor="let comment of comments; let i = index">
-            <div class="comment-card">
-                <div class="comment-header">
-                    <i class="bi bi-person-circle comment-icon"></i>
-                    <span class="comment-name">{{ comment.name }}</span>
+    <!-- Reduced image size -->
+    <div class="text-center mb-4">
+        <img [src]="plant.image" class="img-fluid rounded shadow-sm" style="max-width: 500px;" alt="{{ plant.name }}">
+    </div>
+
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body text-center">
+            <h2 class="card-title fw-bold">{{ plant.name }}</h2>
+        </div>
+    </div>
+
+    <!-- Description takes full width -->
+    <div class="container">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+                <h4 class="card-title">Description</h4>
+                <p class="card-text">{{ plant.description }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Information Cards -->
+    <div class="container">
+        <!-- Usage & Precautions on the same row -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title">Usage</h4>
+                        <p class="card-text">{{ plant.utilisation }}</p>
+                    </div>
                 </div>
-                  <p class="comment-text">{{ comment.commentaire }}</p>
-                 <p class="comment-date">Posted on: {{ comment.date }}</p>
-                   <div class="comment-actions">
-                       <i
-                         class="bi"
-                         [class.bi-heart]="!commentLikes[i]"
-                         [class.bi-heart-fill]="commentLikes[i]"
-                         [class.liked]="commentLikes[i]"
-                         (click)="toggleLike(i)"
-                         style="cursor: pointer; font-size: 1.2rem;"></i>
-                     </div>
-              </div>
-           </div>
-      </div>
-      <div class="mt-4">
-          <h4>Recommendations</h4>
-      </div>
-      <div class="row">
-          <div class="col-md-4 mb-4" *ngFor="let recommended of recommendedPlants">
-              <app-plant-card [plant]="recommended"></app-plant-card>
-          </div>
-      </div>
-  </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title">Precautions</h4>
+                        <p class="card-text">{{ plant.precautions }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Region & Maladies on the same row -->
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title">Region</h4>
+                        <p class="card-text">{{ plant.region }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title">Maladies</h4>
+                        <div class="tag-container">
+                            <span class="tag" *ngFor="let item of plant.maladies">{{ item }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="container mt-4">
+        <h4>Comments:</h4>
+        <form [formGroup]="commentForm" (ngSubmit)="postComment()">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" formControlName="comment" placeholder="Add a comment" />
+                <button class="btn btn-success" type="submit">Post</button>
+            </div>
+        </form>
+
+        <div *ngFor="let comment of comments" class="comment-card">
+            <div class="comment-header">
+                <i class="bi bi-person-circle comment-icon"></i>
+                <span class="comment-name">{{ comment.name }}</span>
+                <p class="comment-date ms-auto">Posted on: {{ comment.date }}</p>
+            </div>
+            <p class="comment-text">{{ comment.commentaire }}</p>
+        </div>
+    </div>
+
+    <!-- Recommendations Section -->
+    <div class="container mt-4">
+        <h4>Recommendations</h4>
+        <div class="row g-4">
+            <div class="col-md-4" *ngFor="let recommended of recommendedPlants">
+                <app-plant-card [plant]="recommended"></app-plant-card>
+            </div>
+        </div>
+    </div>
 </div>

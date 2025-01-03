@@ -10,15 +10,14 @@ import { AuthService } from '../../../services/auth.service';
 export class NavbarComponent  {
   constructor(private router: Router,private authService:AuthService) {}
 
-
+  
   navItems = [
-    { icon: 'house', label: 'Home', action: () => this.home() },
     { icon: 'flower2', label: 'Plants', action: () => this.plants() },
-    { icon: 'book', label: 'Articles', action: () => this.articles() },
+    { icon: 'file-earmark-plus', label: 'New Article', action: () => this.createArticle() },
     { icon: 'person-circle', label: 'Profile', action: () => this.profile() },
     { icon: 'box-arrow-right', label: 'Logout', action: () => this.logout() },
   ];
-
+  
 
   logout() {
     this.authService.logout().subscribe(
@@ -33,21 +32,16 @@ export class NavbarComponent  {
     );
   }
 
-  home() {
-    this.router.navigate(['/user'])
-  }
+
 
   plants() {
-    this.router.navigate(['/user/plants'])
+    this.router.navigate(["user/plants"])
   }
-  articles() {
-        this.router.navigate(['/user/articles'])
-    }
 
   profile() {
     this.router.navigate(['/user/profile'])
   }
   createArticle() {
-    console.log("profile")
+    this.router.navigate(["user/articles"])
   }
 }

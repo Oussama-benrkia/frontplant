@@ -5,7 +5,6 @@ import { ArticleResponse } from '../../../../interfaces/article/article-response
 import { PlantService } from '../../../../services/plant.service';
 import { ArticleService } from '../../../../services/article.service';
 
-
 @Component({
     selector: 'app-plant-search',
     templateUrl: './plant-search.component.html',
@@ -18,11 +17,12 @@ export class PlantSearchComponent {
     activeTab: 'plant' | 'article' = 'plant';
     filteredPlants: PlantesResponse[] = [];
     filteredArticles: ArticleResponse[] = [];
+    showArticleSearch: boolean = false; // Added property to show/hide article search
 
     constructor(private fb: FormBuilder, private plantService: PlantService, private articleService: ArticleService) {
         this.searchForm = this.fb.group({
             searchTerm: [''],
-            searchType: ['name'], // 'name', 'maladies', 'title'
+            searchType: ['name'], // 'name', 'maladies', 'title', 'plantName'
         });
     }
 
@@ -36,26 +36,24 @@ export class PlantSearchComponent {
                     next: (plants) => {
                        this.plants = plants;
                         this.articles = [];
+                        this.filteredArticles = []; // Ensure article results are cleared when searching plants
                     },
                     error: (err) => {
                         console.log(err);
                     },
                 });
-               this.filterPlants(searchTerm, searchType)
+               this.filterPlants(searchTerm, searchType);
+                 this.showArticleSearch = false;
             } else if (this.activeTab === 'article') {
-               this.articleService.searchArticle(this.searchForm.value).subscribe({
-                  next: (articles) => {
-                        this.articles = articles;
-                        this.plants = [];
-                    },
-                   error: (err) => {
-                      console.log(err);
-                    },
-                });
-                 this.filterArticles(searchTerm,searchType)
+              this.showArticleSearch = true; // Show article search only when 'article' tab is active
+              this.articles = [];
+              this.filteredArticles = [];
+              this.plants = []; // Clear previous plant results
+              this.filteredPlants = []
             }
         }
     }
+
 
     setActiveTab(tab: 'plant' | 'article') {
         this.activeTab = tab;
@@ -70,6 +68,7 @@ export class PlantSearchComponent {
         } else if (tab === 'article') {
             this.searchForm.patchValue({ searchType: 'title' });
         }
+      this.showArticleSearch = false;
     }
 
         filterPlants(searchTerm: string, searchType: string) {
@@ -85,10 +84,12 @@ export class PlantSearchComponent {
 
           filterArticles(searchTerm: string, searchType: string) {
         this.filteredArticles = this.articles.filter((article) => {
-            if(searchType === 'title'){
-               return article.title.toLowerCase().includes(searchTerm.toLowerCase());
+           if(searchType === 'title'){
+              return article.title.toLowerCase().includes(searchTerm.toLowerCase());
+           } else if(searchType === 'plantName'){
+                return article.plante.some(plantId => this.plants.some(plant => plant.id === plantId && plant.name.toLowerCase().includes(searchTerm.toLowerCase())));
             }
-              return true
+            return true
           });
         }
 }

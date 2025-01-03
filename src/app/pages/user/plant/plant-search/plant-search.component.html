@@ -33,6 +33,7 @@
                *ngIf="activeTab === 'article'"
                >
                    <option value="title">Title</option>
+                   <option value="plantName">Plant Name</option>
               </select>
       </div>
       <div class="mb-3">
@@ -41,7 +42,7 @@
       </div>
       <button type="submit" class="btn btn-primary">Search</button>
   </form>
- <div class="mt-4" *ngIf="filteredPlants.length > 0 || filteredArticles.length > 0">
+ <div class="mt-4" *ngIf="filteredPlants.length > 0 || (filteredArticles.length > 0 && showArticleSearch)">
      <h3>Search Results:</h3>
       <div class="row">
            <ng-container *ngIf="activeTab === 'plant'">
@@ -63,7 +64,7 @@
    <div *ngIf="filteredPlants.length === 0 && searchForm.get('searchTerm')?.value && activeTab === 'plant'">
      <p>No plants found for your search.</p>
    </div>
-  <div *ngIf="filteredArticles.length === 0 && searchForm.get('searchTerm')?.value  && activeTab === 'article'">
+  <div *ngIf="filteredArticles.length === 0 && searchForm.get('searchTerm')?.value  && activeTab === 'article' && showArticleSearch">
      <p>No articles found for your search.</p>
 </div>
 </div>
