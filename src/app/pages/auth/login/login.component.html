@@ -1,40 +1,93 @@
-<div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card p-4 shadow" style="width: 24rem;">
-      <h3 class="text-center mb-4 text-success">Login</h3>
+<div class="d-flex justify-content-center align-items-center vh-100 animated-bg">
+  <div class="card p-5 shadow-lg border-0 rounded-4 scale-in" style="width: 26rem;">
+      <h3 class="text-center mb-4 text-success fw-bold fade-in">Welcome Back!</h3>
       <form [formGroup]="formLogin" (ngSubmit)="handleLogin()">
-        <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
-          <input 
-            type="email" 
-            formControlName="email" 
-            class="form-control" 
-            id="email" 
-            placeholder="Enter your email"
-            [ngClass]="{'is-invalid': formLogin.get('email')?.touched && formLogin.get('email')?.invalid}">
-          <div *ngIf="formLogin.get('email')?.touched && formLogin.get('email')?.invalid" class="invalid-feedback">
-            <small *ngIf="formLogin.get('email')?.errors?.['required']">Email is required.</small>
-            <small *ngIf="formLogin.get('email')?.errors?.['email']">Enter a valid email address.</small>
+          <!-- Email Field -->
+          <div class="mb-3">
+              <label for="email" class="form-label fw-semibold">Email address</label>
+              <input 
+                  type="email" 
+                  formControlName="email" 
+                  class="form-control p-3 rounded-3" 
+                  id="email" 
+                  placeholder="Enter your email"
+                  [ngClass]="{'is-invalid': formLogin.get('email')?.touched && formLogin.get('email')?.invalid}">
+              <div *ngIf="formLogin.get('email')?.touched && formLogin.get('email')?.invalid" class="invalid-feedback">
+                  <small *ngIf="formLogin.get('email')?.errors?.['required']">Email is required.</small>
+                  <small *ngIf="formLogin.get('email')?.errors?.['email']">Enter a valid email address.</small>
+              </div>
           </div>
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input 
-            type="password" 
-            formControlName="password" 
-            class="form-control" 
-            id="password" 
-            placeholder="Enter your password"
-            [ngClass]="{'is-invalid': formLogin.get('password')?.touched && formLogin.get('password')?.invalid}">
-          <div *ngIf="formLogin.get('password')?.touched && formLogin.get('password')?.invalid" class="invalid-feedback">
-            <small *ngIf="formLogin.get('password')?.errors?.['required']">Password is required.</small>
-            <small *ngIf="formLogin.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</small>
+          <!-- Password Field -->
+          <div class="mb-3">
+              <label for="password" class="form-label fw-semibold">Password</label>
+              <input 
+                  type="password" 
+                  formControlName="password" 
+                  class="form-control p-3 rounded-3" 
+                  id="password" 
+                  placeholder="Enter your password"
+                  [ngClass]="{'is-invalid': formLogin.get('password')?.touched && formLogin.get('password')?.invalid}">
+              <div *ngIf="formLogin.get('password')?.touched && formLogin.get('password')?.invalid" class="invalid-feedback">
+                  <small *ngIf="formLogin.get('password')?.errors?.['required']">Password is required.</small>
+                  <small *ngIf="formLogin.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</small>
+              </div>
           </div>
-        </div>
-        <button type="submit" class="btn btn-success w-100" [disabled]="formLogin.invalid">Login</button>
+          <!-- Login Button -->
+          <button type="submit" class="btn btn-success w-100 py-3 fw-semibold shadow-sm pulse" [disabled]="formLogin.invalid">
+              Login
+          </button>
       </form>
-      <div class="text-center mt-3">
-        Don't have an account? 
-        <span (click)="register()" class="text-decoration-none text-success pointer">Register</span>
+      <!-- Register Link -->
+      <div class="text-center mt-4 fade-in">
+          <p class="mb-0">Don't have an account? 
+              <span (click)="register()" class="text-success fw-bold text-decoration-underline pointer">Register</span>
+          </p>
       </div>
-    </div>
   </div>
+</div>
+
+<style>
+/* Background Gradient Animation */
+.animated-bg {
+  background: linear-gradient(45deg, white, rgba(69, 194, 69, 0.9), rgba(0, 128, 0, 0.8));
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease-in-out infinite alternate;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Card Scaling Animation */
+.scale-in {
+  animation: scaleIn 1s ease-in-out;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Button Pulsing Animation */
+.pulse {
+  animation: pulseEffect 2s infinite;
+}
+
+@keyframes pulseEffect {
+  0% { box-shadow: 0 0 10px rgba(0, 128, 0, 0.7); }
+  50% { box-shadow: 0 0 20px rgba(0, 128, 0, 1); }
+  100% { box-shadow: 0 0 10px rgba(0, 128, 0, 0.7); }
+}
+
+/* Fade-in Effect for Text */
+.fade-in {
+  animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
