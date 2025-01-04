@@ -1,124 +1,118 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from '../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { LoginRequest, AuthResponse } from '../models/auth.interface';
 import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
-  isAuthenticated: boolean = false; // Fixed typo in the property name
-  accessToken: string = ''; // Changed type to string
-  role: string | undefined; // Use string for role, optional with `undefined`
+  private apiUrl = `${environment.apiUrl}/auth`;
+  public role?: string;
+  public isAuthenticated = false;
 
   constructor(private http: HttpClient) {
-    const storedToken = localStorage.getItem('accessToken');
-    const storedRefreshToken = localStorage.getItem('refreshToken');
-    if (storedToken && storedRefreshToken) {
-      this.loadProfile(storedToken, storedRefreshToken);
+    // Check if user is already authenticated
+    const token = this.getToken();
+    if (token) {
+      this.loadProfile(token, this.getRefreshToken() || '');
     }
   }
 
-  /**
-   * Login user with email and password
-   */
-  public login(email: string, password: string): Observable<any> {
-    const loginRequest = { email, password };
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json', // Ensure Content-Type is JSON
-      }),
-    };
-
-    return this.http.post(
-      `${environment.apiUrl}${environment.authController.login}`, // Use template literals
-      loginRequest,
-      options
-    );
+  login(email: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password })
+      .pipe(
+        tap(response => {
+          this.loadProfile(response.token, response.refreshToken);
+        })
+      );
   }
 
-  /**
-   * Register user with required fields and optional file upload
-   */
-  public register(
-    prenom: string,
-    nom: string,
-    email: string,
-    password: string,
-    file: File | null
-  ): Observable<any> {
+  register(prenom: string, nom: string, email: string, password: string, file: File | null = null): Observable<AuthResponse> {
     const formData = new FormData();
     formData.append('prenom', prenom);
     formData.append('nom', nom);
     formData.append('email', email);
     formData.append('password', password);
-
     if (file) {
-      formData.append('file', file, file.name); // Ensure file name is included
+      formData.append('file', file);
     }
 
-    console.log('FormData being sent:', formData);
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, formData)
+      .pipe(
+        tap(response => {
+          this.loadProfile(response.token, response.refreshToken);
+        })
+      );
+  }
 
-    return this.http.post(
-      `${environment.apiUrl}${environment.authController.register}`, // Use template literals
-      formData
+  refresh(token: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/refresh`, { token });
+  }
+
+  logout(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/logout`).pipe(
+      tap(() => {
+        this.clearAuth();
+      })
     );
   }
-  public refresh(token: string): Observable<any> {
-    const loginRequest = { token };
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json', // Ensure Content-Type is JSON
-      }),
-    };
 
-    return this.http.post(
-      `${environment.apiUrl}${environment.authController.refreshToken}`, // Use template literals
-      loginRequest,
-      options
-    );
-  }
-  public logout():Observable<any>
-  {
-    this.isAuthenticated = false;
-    this.accessToken = '';
-    this.role = undefined;
-    return this.http.get(
-      `${environment.apiUrl}${environment.authController.logout}`// Use template literals
-    )
-  }
-  public loadProfile(token: string, refreshToken: string): void {
-    // Store tokens in local storage
+  loadProfile(token: string, refreshToken: string): void {
     localStorage.setItem('accessToken', token);
     localStorage.setItem('refreshToken', refreshToken);
-
-    this.isAuthenticated = true; 
-    this.accessToken = token;
-    const decodedToken: any = jwtDecode(this.accessToken);
-    console.log('Decoded JWT:', decodedToken);
-    this.role = decodedToken.role; 
+    
+    this.isAuthenticated = true;
+    const decodedToken: any = jwtDecode(token);
+    console.log('Decoded token:', decodedToken); // Debug log
+    
+    // Handle different role formats
+    if (decodedToken.roles && Array.isArray(decodedToken.roles)) {
+      // If roles is an array, take the first role
+      this.role = decodedToken.roles[0];
+    } else if (decodedToken.role) {
+      // If it's a single role
+      this.role = decodedToken.role;
+    } else if (decodedToken.authorities && Array.isArray(decodedToken.authorities)) {
+      // If using Spring Security's default authorities format
+      this.role = decodedToken.authorities[0].replace('ROLE_', '');
+    }
+    
+    console.log('Set role to:', this.role); // Debug log
   }
-  public isAccessTokenExpired(): boolean {
-    if (!this.accessToken) return true;
 
-    const decodedToken: any = jwtDecode(this.accessToken);
-    const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
-    return decodedToken.exp < currentTime; // Compare expiration time with current time
+  getToken(): string | null {
+    return localStorage.getItem('accessToken');
   }
 
-  public isRefreshTokenExpired(): boolean {
-    const refreshToken = localStorage.getItem('refreshToken');
+  getRefreshToken(): string | null {
+    return localStorage.getItem('refreshToken');
+  }
+
+  isAccessTokenExpired(): boolean {
+    const token = this.getToken();
+    if (!token) return true;
+
+    const decodedToken: any = jwtDecode(token);
+    const currentTime = Math.floor(Date.now() / 1000);
+    return decodedToken.exp < currentTime;
+  }
+
+  isRefreshTokenExpired(): boolean {
+    const refreshToken = this.getRefreshToken();
     if (!refreshToken) return true;
 
     const decodedToken: any = jwtDecode(refreshToken);
-    const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
-    return decodedToken.exp < currentTime; // Compare expiration time with current time
+    const currentTime = Math.floor(Date.now() / 1000);
+    return decodedToken.exp < currentTime;
   }
-  public refreshtoken(token:String):Observable<any>
-  {
-    return this.http.post(
-      `${environment.apiUrl}${environment.authController.refreshToken}`,{"token":token}// Use template literals
-    )
+
+  public clearAuth(): void {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    this.isAuthenticated = false;
+    this.role = undefined;
   }
 }

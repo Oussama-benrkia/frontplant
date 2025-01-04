@@ -1,1 +1,85 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo">
+      <h2>M3achaba Admin</h2>
+    </div>
+    
+    <nav class="menu">
+      <a *ngFor="let item of menuItems" 
+         [routerLink]="item.route"
+         routerLinkActive="active"
+         class="menu-item">
+        <mat-icon class="menu-icon">{{item.icon}}</mat-icon>
+        <span class="menu-label">{{item.label}}</span>
+        <span class="count" *ngIf="item.count">{{item.count}}</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Header -->
+    <header class="header">
+      <div class="search-bar">
+        <mat-icon>search</mat-icon>
+        <input type="text" placeholder="Search...">
+      </div>
+      
+      <div class="user-menu">
+        <mat-icon>notifications</mat-icon>
+        <div class="profile">
+          <img src="assets/avatar.png" alt="Profile">
+          <span>Admin Name</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon users">
+          <mat-icon>people</mat-icon>
+        </div>
+        <div class="stat-details">
+          <h3>Total Users</h3>
+          <p>{{stats.totalUsers}}</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon articles">
+          <mat-icon>article</mat-icon>
+        </div>
+        <div class="stat-details">
+          <h3>Articles</h3>
+          <p>{{stats.totalArticles}}</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon plants">
+          <mat-icon>local_florist</mat-icon>
+        </div>
+        <div class="stat-details">
+          <h3>Plants</h3>
+          <p>{{stats.totalPlants}}</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon diseases">
+          <mat-icon>coronavirus</mat-icon>
+        </div>
+        <div class="stat-details">
+          <h3>Diseases</h3>
+          <p>{{stats.totalDiseases}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Router Outlet for Sub-pages -->
+    <router-outlet></router-outlet>
+  </main>
+</div>

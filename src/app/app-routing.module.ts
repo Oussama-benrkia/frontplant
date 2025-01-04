@@ -4,8 +4,10 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { HomeComponent } from './pages/user/home/home.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
-import { authenticationGuard } from './guards/authentication.guard';
+import { AuthenticationGuard } from './guards/authentication.guard';
 import { LayoutWithNavbarComponent } from './pages/user/layout-with-navbar/layout-with-navbar.component';
+import { UsersComponent } from './pages/admin/users/users.component';
+import { ArticlesComponent } from './pages/admin/articles/articles.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -14,13 +16,24 @@ const routes: Routes = [
   {
     path: 'user',
     component: LayoutWithNavbarComponent,
-    canActivate: [authenticationGuard], // Ajout de la garde au niveau du parent
+    canActivate: [AuthenticationGuard],
     children: [
-      { path: '', component: HomeComponent } // Route par défaut pour /user
+      { path: '', component: HomeComponent }
     ]
   },
-  {path:'admin',component:DashboardComponent,canActivate:[authenticationGuard]}
-
+  {
+    path: 'admin',
+    component: DashboardComponent,
+    canActivate: [AuthenticationGuard],
+    children: [
+      { path: 'users', component: UsersComponent },
+      { path: 'articles', component: ArticlesComponent },
+      { 
+        path: 'plants',
+        loadChildren: () => import('./pages/admin/plants/plants.module').then(m => m.PlantsModule)
+      }
+    ]
+  }
 ];
 
 @NgModule({

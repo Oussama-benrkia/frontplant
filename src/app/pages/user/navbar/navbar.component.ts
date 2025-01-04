@@ -14,6 +14,7 @@ export class NavbarComponent  {
   navItems = [
     { icon: 'house', label: 'Home', action: () => this.home() },
     { icon: 'flower2', label: 'Plants', action: () => this.plants() },
+    { icon: 'journal-text', label: 'Articles', action: () => this.articles() },
     { icon: 'person-circle', label: 'Profile', action: () => this.profile() },
     { icon: 'file-earmark-plus', label: 'New Article', action: () => this.createArticle() },
     { icon: 'box-arrow-right', label: 'Logout', action: () => this.logout() },
@@ -24,7 +25,7 @@ export class NavbarComponent  {
     this.authService.logout().subscribe(
       () => {
         localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+        localStorage.removeItem('refreshToken');
         this.router.navigate(['auth/login']);
       },
       (error) => {
@@ -34,17 +35,22 @@ export class NavbarComponent  {
   }
 
   home() {
-    console.log("home")
+    this.router.navigate(['/user']);
   }
 
   plants() {
-    console.log("plantes")
+    this.router.navigate(['/admin/plants']);
+  }
+
+  articles() {
+    this.router.navigate(['/user/articles']);
   }
 
   profile() {
     console.log("profile")
   }
+
   createArticle() {
-    console.log("profile")
+    console.log("create article")
   }
 }

@@ -1,0 +1,49 @@
+.dialog-content {
+  padding: 20px;
+  min-width: 500px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.file-upload {
+  margin-bottom: 20px;
+}
+
+.file-upload button {
+  width: 100%;
+  padding: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-dialog-actions {
+  padding: 16px 0;
+  margin-bottom: 0;
+}
+
+button[type="submit"] {
+  min-width: 120px;
+}
+
+.mat-mdc-dialog-actions {
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+mat-spinner {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+mat-chip-grid {
+  width: 100%;
+}
+
+::ng-deep .mat-mdc-dialog-container {
+  padding: 0 !important;
+} 

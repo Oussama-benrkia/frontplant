@@ -89,7 +89,13 @@ export class RegisterComponent implements OnInit {
     };
   
     // Call the register method from AuthService
-    this.authservice.register(user.prenom, user.nom, user.email, user.password, user.file).subscribe({
+    this.authservice.register(
+      user.prenom, 
+      user.nom, 
+      user.email, 
+      user.password, 
+      user.file || null  // Explicitly handle null case
+    ).subscribe({
       next: (response) => {
         this.authservice.loadProfile(response.token,response.refreshToken);
         

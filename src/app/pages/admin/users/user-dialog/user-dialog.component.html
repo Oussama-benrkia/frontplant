@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>{{isEditMode ? 'Edit' : 'Add'}} User</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <div class="form-field-container">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="prenom" placeholder="Enter first name">
+        <mat-error *ngIf="form.get('prenom')?.hasError('required')">First name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="nom" placeholder="Enter last name">
+        <mat-error *ngIf="form.get('nom')?.hasError('required')">Last name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Enter email">
+        <mat-error *ngIf="form.get('email')?.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="form.get('email')?.hasError('email')">Please enter a valid email</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" *ngIf="!isEditMode">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" placeholder="Enter password">
+        <mat-error *ngIf="form.get('password')?.hasError('required')">Password is required</mat-error>
+        <mat-error *ngIf="form.get('password')?.hasError('minlength')">Password must be at least 6 characters</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="role">
+          <mat-option value="USER">User</mat-option>
+          <mat-option value="ADMIN">Admin</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('role')?.hasError('required')">Role is required</mat-error>
+      </mat-form-field>
+
+      <div class="file-input">
+        <button type="button" mat-stroked-button (click)="fileInput.click()">
+          <mat-icon>cloud_upload</mat-icon>
+          {{selectedFile ? selectedFile.name : 'Choose Image'}}
+        </button>
+        <input hidden (change)="onFileSelected($event)" #fileInput type="file" accept="image/*">
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      {{isEditMode ? 'Update' : 'Create'}}
+    </button>
+  </mat-dialog-actions>
+</form> 
