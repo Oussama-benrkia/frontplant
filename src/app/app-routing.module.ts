@@ -12,7 +12,10 @@ import { PlantSearchComponent } from './pages/user/plant/plant-search/plant-sear
 import { ArticleListComponent } from './pages/user/article/article-list/article-list.component';
 import { ArticleDetailComponent } from './pages/user/article/article-detail/article-detail.component';
 import { ProfileComponent } from './pages/user/profile/profile.component';
-import { ArticleSearchComponent } from './pages/user/article/article-search/article-search.component'; // Import ArticleSearchComponent
+import { ArticleSearchComponent } from './pages/user/article/article-search/article-search.component';
+import { UsersComponent } from './pages/admin/users/users.component';
+import { ArticlesComponent } from './pages/admin/articles/articles.component';
+import { DiseasesComponent } from './pages/admin/diseases/diseases.component'; // Import ArticleSearchComponent
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
@@ -33,7 +36,20 @@ const routes: Routes = [
        { path: 'articles/search', component: ArticleSearchComponent } // Add ArticleSearchComponent Route
     ]
   },
-  { path: 'admin', component: DashboardComponent, canActivate: [authenticationGuard] },
+  {
+    path: 'admin',
+    component: DashboardComponent,
+    canActivate: [authenticationGuard],
+    children: [
+      { path: 'users', component: UsersComponent },
+      { path: 'articles', component: ArticlesComponent },
+      { 
+        path: 'plants',
+        loadChildren: () => import('./pages/admin/plants/plants.module').then(m => m.PlantsModule)
+      },
+      { path: 'diseases', component: DiseasesComponent }
+    ]
+  },
   { path: '**', redirectTo: '/auth/login' } // Gestion des routes inconnues
 ];
 
