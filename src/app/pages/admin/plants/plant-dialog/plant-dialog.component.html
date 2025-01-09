@@ -1,0 +1,87 @@
+<div class="dialog-content">
+  <h2 mat-dialog-title>{{isEditMode ? 'Edit' : 'Add'}} Plant</h2>
+  
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div mat-dialog-content>
+      <!-- Name -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="form.get('name')?.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Description -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" required rows="3"></textarea>
+        <mat-error *ngIf="form.get('description')?.hasError('required')">
+          Description is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Region -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Region</mat-label>
+        <input matInput formControlName="region" required>
+        <mat-error *ngIf="form.get('region')?.hasError('required')">
+          Region is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Utilisation -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Utilisation</mat-label>
+        <textarea matInput formControlName="utilisation" required rows="2"></textarea>
+        <mat-error *ngIf="form.get('utilisation')?.hasError('required')">
+          Utilisation is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Precautions -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Precautions</mat-label>
+        <textarea matInput formControlName="precautions" required rows="2"></textarea>
+        <mat-error *ngIf="form.get('precautions')?.hasError('required')">
+          Precautions is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Maladies Chips -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Maladies</mat-label>
+        <mat-chip-grid #chipGrid>
+          <mat-chip-row *ngFor="let maladie of maladies"
+                     (removed)="removeMaladie(maladie)">
+            {{maladie}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          <input placeholder="New maladie..."
+                 [matChipInputFor]="chipGrid"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 (matChipInputTokenEnd)="addMaladie($event)">
+        </mat-chip-grid>
+      </mat-form-field>
+
+      <!-- Image Upload -->
+      <div class="file-upload">
+        <button type="button" mat-stroked-button (click)="fileInput.click()">
+          <mat-icon>cloud_upload</mat-icon>
+          {{selectedFile ? selectedFile.name : 'Choose Image'}}
+        </button>
+        <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" style="display: none">
+      </div>
+    </div>
+
+    <div mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close type="button">Cancel</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || isSubmitting">
+        <mat-spinner diameter="20" *ngIf="isSubmitting"></mat-spinner>
+        <span *ngIf="!isSubmitting">{{isEditMode ? 'Update' : 'Create'}}</span>
+      </button>
+    </div>
+  </form>
+</div> 

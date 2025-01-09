@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="header">
+    <h2>Plants Management</h2>
+    <div class="actions">
+      <mat-form-field appearance="outline">
+        <mat-label>Search plants</mat-label>
+        <input matInput (keyup)="onSearch($event)" [value]="searchTerm" placeholder="Search by name, description...">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <button mat-raised-button color="primary" class="add-button" (click)="openAddEditDialog()">
+        <mat-icon>add</mat-icon>
+        Add Plant
+      </button>
+    </div>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <div class="loading-shade" *ngIf="isLoading">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" matSort class="plants-table">
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let plant"> {{plant.id}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let plant"> {{plant.name}} </td>
+        </ng-container>
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+          <td mat-cell *matCellDef="let plant"> {{plant.description}} </td>
+        </ng-container>
+
+        <!-- Region Column -->
+        <ng-container matColumnDef="region">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Region </th>
+          <td mat-cell *matCellDef="let plant"> {{plant.region}} </td>
+        </ng-container>
+
+        <!-- Utilisation Column -->
+        <ng-container matColumnDef="utilisation">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Utilisation </th>
+          <td mat-cell *matCellDef="let plant"> {{plant.utilisation}} </td>
+        </ng-container>
+
+        <!-- Precautions Column -->
+        <ng-container matColumnDef="precautions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Precautions </th>
+          <td mat-cell *matCellDef="let plant"> {{plant.precautions}} </td>
+        </ng-container>
+
+        <!-- Maladies Column -->
+        <ng-container matColumnDef="maladies">
+          <th mat-header-cell *matHeaderCellDef> Maladies </th>
+          <td mat-cell *matCellDef="let plant"> {{getMaladiesString(plant.maladies)}} </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let plant">
+            <button mat-icon-button color="primary" (click)="openAddEditDialog(plant)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deletePlant(plant.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <div *ngIf="!isLoading && (!dataSource.data || dataSource.data.length === 0)" class="no-data">
+        No plants found
+      </div>
+    </div>
+
+    <mat-paginator 
+      [length]="totalElements"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[6, 12, 24, 48]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
+</div> 
