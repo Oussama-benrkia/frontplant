@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UserService } from '../../../services/user.service';
+import { UserService } from '../../../services/admin_serv/user.service';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';

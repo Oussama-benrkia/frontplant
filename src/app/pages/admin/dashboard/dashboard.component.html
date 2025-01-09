@@ -2,7 +2,7 @@
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="logo">
-      <img src="assets/logo.png" alt="Logo">
+      <mat-icon class="logo-icon">admin_panel_settings</mat-icon>
       <h2>M3achaba Admin</h2>
     </div>
     
@@ -29,10 +29,17 @@
       
       <div class="user-menu">
         <mat-icon>notifications</mat-icon>
-        <div class="profile">
-          <img src="assets/avatar.png" alt="Profile">
+        <div class="profile" [matMenuTriggerFor]="profileMenu">
+          <mat-icon class="avatar-icon">account_circle</mat-icon>
           <span>Admin Name</span>
+          <mat-icon>arrow_drop_down</mat-icon>
         </div>
+        <mat-menu #profileMenu="matMenu">
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
       </div>
     </header>
 

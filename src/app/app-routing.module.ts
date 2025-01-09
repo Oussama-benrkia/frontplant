@@ -8,6 +8,7 @@ import { AuthenticationGuard } from './guards/authentication.guard';
 import { LayoutWithNavbarComponent } from './pages/user/layout-with-navbar/layout-with-navbar.component';
 import { UsersComponent } from './pages/admin/users/users.component';
 import { ArticlesComponent } from './pages/admin/articles/articles.component';
+import { DiseasesComponent } from './pages/admin/diseases/diseases.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -31,7 +32,8 @@ const routes: Routes = [
       { 
         path: 'plants',
         loadChildren: () => import('./pages/admin/plants/plants.module').then(m => m.PlantsModule)
-      }
+      },
+      { path: 'diseases', component: DiseasesComponent }
     ]
   }
 ];

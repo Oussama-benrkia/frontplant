@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticleService } from '../../../services/article.service';
+import { ArticleService } from '../../../services/admin_serv/article.service';
 import { Article } from '../../../models/article.interface';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';

@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Plant } from '../../../models/plant.interface';
-import { PlantService } from '../../../services/plant.service';
+import { PlantService } from '../../../services/admin_serv/plant.service';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { PlantDialogComponent } from './plant-dialog/plant-dialog.component';

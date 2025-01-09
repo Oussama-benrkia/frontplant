@@ -17,6 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu';
 
 // Components
 import { AppRoutingModule } from './app-routing.module';
@@ -30,6 +31,7 @@ import { LayoutWithNavbarComponent } from './pages/user/layout-with-navbar/layou
 import { NavbarComponent } from './pages/user/navbar/navbar.component';
 import { UsersComponent } from './pages/admin/users/users.component';
 import { UserDialogComponent } from './pages/admin/users/user-dialog/user-dialog.component';
+import { DiseasesComponent } from './pages/admin/diseases/diseases.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { UserDialogComponent } from './pages/admin/users/user-dialog/user-dialog
     LayoutWithNavbarComponent,
     NavbarComponent,
     UsersComponent,
-    UserDialogComponent
+    UserDialogComponent,
+    DiseasesComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import { UserDialogComponent } from './pages/admin/users/user-dialog/user-dialog
     MatDialogModule,
     MatSelectModule,
     MatChipsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

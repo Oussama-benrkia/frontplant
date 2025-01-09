@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../../services/data.service';
+import { Router } from '@angular/router';
+import { DataService } from '../../../services/admin_serv/data.service';
+import { AuthService } from '../../../services/auth.service';
 
 interface MenuItem {
   label: string;
@@ -18,7 +20,7 @@ export class DashboardComponent implements OnInit {
     { label: 'Dashboard', icon: 'dashboard', route: '/admin/dashboard' },
     { label: 'Articles', icon: 'article', route: '/admin/articles', count: 0 },
     { label: 'Plants', icon: 'local_florist', route: '/admin/plants', count: 0 },
-    { label: 'Diseases', icon: 'coronavirus', route: '/admin/diseases', count: 0 },
+    { label: 'Maladies', icon: 'coronavirus', route: '/admin/diseases', count: 0 },
     { label: 'Users', icon: 'people', route: '/admin/users', count: 0 },
   ];
 
@@ -29,10 +31,33 @@ export class DashboardComponent implements OnInit {
     totalDiseases: 0
   };
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loadDashboardData();
+  }
+
+  logout() {
+    this.authService.logout().subscribe({
+      next: () => {
+        // Clear local storage
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        // Navigate to login page
+        this.router.navigate(['/auth/login']);
+      },
+      error: (error) => {
+        console.error('Logout failed:', error);
+        // Even if logout fails, clear tokens and redirect
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        this.router.navigate(['/auth/login']);
+      }
+    });
   }
 
   private loadDashboardData() {

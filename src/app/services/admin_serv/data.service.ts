@@ -14,7 +14,7 @@ interface DashboardData {
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'http://localhost:8080/api/data';
+  private apiUrl = 'http://localhost:8088/api/data';
 
   constructor(private http: HttpClient) { }
 
