@@ -12,11 +12,11 @@ export class NavbarComponent  {
 
   
   navItems = [
-    { icon: 'house', label: 'Home', action: () => this.home() },
     { icon: 'flower2', label: 'Plants', action: () => this.plants() },
     { icon: 'journal-text', label: 'Articles', action: () => this.articles() },
     { icon: 'person-circle', label: 'Profile', action: () => this.profile() },
     { icon: 'file-earmark-plus', label: 'New Article', action: () => this.createArticle() },
+    // { icon: 'person-circle', label: 'Profile', action: () => this.profile() },
     { icon: 'box-arrow-right', label: 'Logout', action: () => this.logout() },
   ];
   
@@ -38,19 +38,22 @@ export class NavbarComponent  {
     this.router.navigate(['/user']);
   }
 
-  plants() {
-    this.router.navigate(['/admin/plants']);
-  }
+  // plants() {
+  //   this.router.navigate(['/admin/plants']);
+  // }
 
   articles() {
     this.router.navigate(['/user/articles']);
   }
+  plants() {
+    this.router.navigate(["user/plants"])
+  }
 
   profile() {
-    console.log("profile")
+    this.router.navigate(['/user/profile'])
   }
 
   createArticle() {
-    console.log("create article")
+    this.router.navigate(["user/articles"])
   }
 }

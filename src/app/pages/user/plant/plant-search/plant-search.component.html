@@ -1,0 +1,70 @@
+<div class="container mt-5">
+  <div class="d-flex">
+      <button
+        type="button"
+        class="btn me-2"
+        [class.btn-success]="activeTab === 'plant'"
+        [class.btn-outline-success]="activeTab !== 'plant'"
+        (click)="setActiveTab('plant')"
+      >
+        Plant
+      </button>
+      <button
+        type="button"
+        class="btn "
+        [class.btn-success]="activeTab === 'article'"
+        [class.btn-outline-success]="activeTab !== 'article'"
+        (click)="setActiveTab('article')"
+      >
+        Article
+      </button>
+    </div>
+  <h2>Search Medicinal Plants</h2>
+  <form [formGroup]="searchForm" (ngSubmit)="searchPlant()">
+      <div class="mb-3">
+          <label for="searchType" class="form-label">Search By:</label>
+            <select class="form-select" formControlName="searchType" id="searchType"
+              *ngIf="activeTab === 'plant'"
+             >
+              <option value="name">Name</option>
+              <option value="maladies">Disease</option>
+          </select>
+              <select class="form-select" formControlName="searchType" id="searchType"
+               *ngIf="activeTab === 'article'"
+               >
+                   <option value="title">Title</option>
+                   <option value="plantName">Plant Name</option>
+              </select>
+      </div>
+      <div class="mb-3">
+          <label for="searchTerm" class="form-label">Search Term</label>
+          <input type="text" class="form-control" id="searchTerm" formControlName="searchTerm" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+ <div class="mt-4" *ngIf="filteredPlants.length > 0 || (filteredArticles.length > 0 && showArticleSearch)">
+     <h3>Search Results:</h3>
+      <div class="row">
+           <ng-container *ngIf="activeTab === 'plant'">
+            <div class="col-md-4 mb-4" *ngFor="let plant of filteredPlants">
+               <app-plant-card [plant]="plant"></app-plant-card>
+           </div>
+          </ng-container>
+           <ng-container *ngIf="activeTab === 'article'">
+            <div class="col-md-4 mb-4" *ngFor="let article of filteredArticles">
+              <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                      <h5 class="card-title">{{article.title}}</h5>
+                  </div>
+              </div>
+          </div>
+          </ng-container>
+      </div>
+  </div>
+   <div *ngIf="filteredPlants.length === 0 && searchForm.get('searchTerm')?.value && activeTab === 'plant'">
+     <p>No plants found for your search.</p>
+   </div>
+  <div *ngIf="filteredArticles.length === 0 && searchForm.get('searchTerm')?.value  && activeTab === 'article' && showArticleSearch">
+     <p>No articles found for your search.</p>
+</div>
+</div>

@@ -1,4 +1,4 @@
 export interface CommentaireRequest {
-    commentaire: string;
+  commentaire: string;
   }
   

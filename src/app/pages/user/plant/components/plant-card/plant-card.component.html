@@ -1,0 +1,17 @@
+<div class="card shadow-lg border-0 rounded-4 overflow-hidden" (click)="nav()">
+  <img   [src]="plant.image ? plant.image : 'assets/default.jpeg'"  class="card-img-top object-fit-cover" alt="{{plant.name}}" style="height: 200px;">
+  <div class="card-body text-center bg-light">
+    <h5 class="card-title fw-bold text-success">{{plant.name}}</h5>
+    <p class="card-text text-muted">{{plant.description | slice:0:50}}...</p>
+    <button class="btn  btn-success w-100 mt-2" (click)="nav()">View Details</button>
+  </div>
+</div>
+
+<style>
+.card:hover {
+  transform: translateY(-10px);
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+</style>

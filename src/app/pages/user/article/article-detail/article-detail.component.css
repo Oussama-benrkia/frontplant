@@ -1,0 +1,41 @@
+.comment-card {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: relative; /* Add this for absolute positioning of actions */
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.comment-icon {
+  font-size: 1.5rem;
+  margin-right: 5px;
+}
+
+.comment-name {
+  font-weight: bold;
+}
+.comment-date {
+  font-size: 0.8em;
+  color: #888;
+  margin-top: 2px;
+}
+
+.comment-text {
+  margin-bottom: 0;
+}
+.comment-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.liked {
+  color: red;
+}

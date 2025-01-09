@@ -1,126 +1,130 @@
-<div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card p-4 shadow" style="width: 28rem;">
-      <h3 class="text-center mb-4 text-success">S'inscrire</h3>
-      <form [formGroup]="formLogin" (ngSubmit)="handleregister()">
-        <div class="mb-3">
-          <label for="nom" class="form-label">Nom d'utilisateur</label>
-          <input
-            type="text"
-            class="form-control"
-            id="nom"
-            placeholder="Entrez votre nom"
-            formControlName="nom"
-            [ngClass]="{ 'is-invalid': formLogin.get('nom')?.touched && formLogin.get('nom')?.invalid }"
-          />
-          <div *ngIf="formLogin.get('nom')?.touched && formLogin.get('nom')?.invalid" class="invalid-feedback">
-            <small>Le nom est obligatoire.</small>
-          </div>
+<div class="d-flex justify-content-center align-items-center min-vh-100 animated-bg">
+  <div class="card p-4 shadow mt-4 mb-4 scale-in" style="width: 28rem; border-radius: 15px;">
+    <h3 class="text-center mb-4 text-success fw-bold">S'inscrire</h3>
+    <form [formGroup]="formLogin" (ngSubmit)="handleregister()">
+      <div class="mb-3">
+        <label for="nom" class="form-label fw-semibold">Nom d'utilisateur</label>
+        <input type="text" class="form-control p-3 rounded-3" id="nom" placeholder="Entrez votre nom" formControlName="nom"
+          [ngClass]="{ 'is-invalid': formLogin.get('nom')?.touched && formLogin.get('nom')?.invalid }">
+        <div *ngIf="formLogin.get('nom')?.touched && formLogin.get('nom')?.invalid" class="invalid-feedback">
+          <small>Le nom est obligatoire.</small>
         </div>
-  
-        <div class="mb-3">
-          <label for="prenom" class="form-label">Prénom d'utilisateur</label>
-          <input
-            type="text"
-            class="form-control"
-            id="prenom"
-            placeholder="Entrez votre prénom"
-            formControlName="prenom"
-            [ngClass]="{ 'is-invalid': formLogin.get('prenom')?.touched && formLogin.get('prenom')?.invalid }"
-          />
-          <div *ngIf="formLogin.get('prenom')?.touched && formLogin.get('prenom')?.invalid" class="invalid-feedback">
-            <small>Le prénom est obligatoire.</small>
-          </div>
-        </div>
-  
-        <div class="mb-3">
-          <label for="email" class="form-label">Adresse e-mail</label>
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            placeholder="Entrez votre adresse e-mail"
-            formControlName="email"
-            [ngClass]="{ 'is-invalid': formLogin.get('email')?.touched && formLogin.get('email')?.invalid }"
-          />
-          <div *ngIf="formLogin.get('email')?.touched && formLogin.get('email')?.invalid" class="invalid-feedback">
-            <small *ngIf="formLogin.get('email')?.errors?.['required']">L'adresse e-mail est obligatoire.</small>
-            <small *ngIf="formLogin.get('email')?.errors?.['email']">Veuillez entrer une adresse e-mail valide.</small>
-          </div>
-        </div>
-  
-        <div class="mb-3 position-relative">
-          <label for="password" class="form-label">Mot de passe</label>
-          <div class="input-group">
-            <input
-              [type]="passwordType"
-              class="form-control"
-              id="password"
-              placeholder="Entrez votre mot de passe"
-              formControlName="password"
-              [ngClass]="{ 'is-invalid': formLogin.get('password')?.touched && formLogin.get('password')?.invalid }"
-            />
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              (click)="togglePasswordVisibility()"
-            >
-              <i class="bi" [ngClass]="passwordType === 'password' ? 'bi-eye' : 'bi-eye-slash'"></i>
-            </button>
-          </div>
-          <div *ngIf="formLogin.get('password')?.touched && formLogin.get('password')?.invalid" class="invalid-feedback">
-            <small *ngIf="formLogin.get('password')?.errors?.['required']">Le mot de passe est obligatoire.</small>
-            <small *ngIf="formLogin.get('password')?.errors?.['minlength']">
-              Le mot de passe doit contenir au moins 6 caractères.
-            </small>
-          </div>
-        </div>
-  
-        <div class="mb-3 position-relative">
-          <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
-          <div class="input-group">
-            <input
-              [type]="confirmPasswordType"
-              class="form-control"
-              id="confirmPassword"
-              placeholder="Confirmer votre mot de passe"
-              formControlName="confirmPassword"
-              [ngClass]="{ 'is-invalid': formLogin.hasError('mismatch') }"
-            />
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              (click)="toggleConfirmPasswordVisibility()"
-            >
-              <i class="bi" [ngClass]="confirmPasswordType === 'password' ? 'bi-eye' : 'bi-eye-slash'"></i>
-            </button>
-          </div>
-          <div *ngIf="formLogin.hasError('mismatch')" class="invalid-feedback">
-            <small>Les mots de passe ne correspondent pas.</small>
-          </div>
-        </div>
-  
-        <div class="mb-3">
-          <label for="imageUpload" class="form-label">Télécharger une image de profil</label>
-          <input type="file" class="form-control" id="imageUpload" (change)="onImageUpload($event)" />
-          <div *ngIf="imageError" class="text-danger">
-            <small>{{ imageError }}</small>
-          </div>
-          <div *ngIf="imageUrl" class="d-flex justify-content-center mt-3">
-            <img
-              [src]="imageUrl"
-              alt="Image de profil"
-              class="rounded-circle"
-              style="width: 100px; height: 100px; object-fit: cover;"
-            />
-          </div>
-        </div>
-  
-        <button type="submit" class="btn btn-success w-100" [disabled]="formLogin.invalid">S'inscrire</button>
-      </form>
-      <div class="text-center mt-3">
-        Vous avez déjà un compte ?
-        <span (click)="login()" class="text-decoration-none text-success pointer">Se connecter</span>
       </div>
+
+      <div class="mb-3">
+        <label for="prenom" class="form-label fw-semibold">Prénom d'utilisateur</label>
+        <input type="text" class="form-control p-3 rounded-3" id="prenom" placeholder="Entrez votre prénom" formControlName="prenom"
+          [ngClass]="{ 'is-invalid': formLogin.get('prenom')?.touched && formLogin.get('prenom')?.invalid }">
+        <div *ngIf="formLogin.get('prenom')?.touched && formLogin.get('prenom')?.invalid" class="invalid-feedback">
+          <small>Le prénom est obligatoire.</small>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">Adresse e-mail</label>
+        <input type="email" class="form-control p-3 rounded-3" id="email" placeholder="Entrez votre adresse e-mail"
+          formControlName="email" [ngClass]="{ 'is-invalid': formLogin.get('email')?.touched && formLogin.get('email')?.invalid }">
+        <div *ngIf="formLogin.get('email')?.touched && formLogin.get('email')?.invalid" class="invalid-feedback">
+          <small *ngIf="formLogin.get('email')?.errors?.['required']">L'adresse e-mail est obligatoire.</small>
+          <small *ngIf="formLogin.get('email')?.errors?.['email']">Veuillez entrer une adresse e-mail valide.</small>
+        </div>
+      </div>
+
+      <div class="mb-3 position-relative">
+        <label for="password" class="form-label fw-semibold">Mot de passe</label>
+        <div class="input-group">
+          <input [type]="passwordType" class="form-control p-3 rounded-3" id="password" placeholder="Entrez votre mot de passe"
+            formControlName="password" [ngClass]="{ 'is-invalid': formLogin.get('password')?.touched && formLogin.get('password')?.invalid }">
+          <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility()">
+            <i class="bi" [ngClass]="passwordType === 'password' ? 'bi-eye' : 'bi-eye-slash'"></i>
+          </button>
+        </div>
+        <div *ngIf="formLogin.get('password')?.touched && formLogin.get('password')?.invalid" class="invalid-feedback">
+          <small *ngIf="formLogin.get('password')?.errors?.['required']">Le mot de passe est obligatoire.</small>
+          <small *ngIf="formLogin.get('password')?.errors?.['minlength']">Le mot de passe doit contenir au moins 6 caractères.</small>
+        </div>
+      </div>
+
+      <div class="mb-3 position-relative">
+        <label for="confirmPassword" class="form-label fw-semibold">Confirmer le mot de passe</label>
+        <div class="input-group">
+          <input [type]="confirmPasswordType" class="form-control p-3 rounded-3" id="confirmPassword"
+            placeholder="Confirmer votre mot de passe" formControlName="confirmPassword"
+            [ngClass]="{ 'is-invalid': formLogin.hasError('mismatch') }">
+          <button type="button" class="btn btn-outline-secondary" (click)="toggleConfirmPasswordVisibility()">
+            <i class="bi" [ngClass]="confirmPasswordType === 'password' ? 'bi-eye' : 'bi-eye-slash'"></i>
+          </button>
+        </div>
+        <div *ngIf="formLogin.hasError('mismatch')" class="invalid-feedback">
+          <small>Les mots de passe ne correspondent pas.</small>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="imageUpload" class="form-label fw-semibold">Télécharger une image de profil</label>
+        <input type="file" class="form-control p-3 rounded-3" id="imageUpload" (change)="onImageUpload($event)">
+        <div *ngIf="imageError" class="text-danger">
+          <small>{{ imageError }}</small>
+        </div>
+        <div *ngIf="imageUrl" class="d-flex justify-content-center mt-3">
+          <img [src]="imageUrl" alt="Image de profil" class="rounded-circle"
+            style="width: 100px; height: 100px; object-fit: cover;">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success w-100" [disabled]="formLogin.invalid">S'inscrire</button>
+    </form>
+    <div class="text-center mt-3">
+      Vous avez déjà un compte ?
+      <span (click)="login()" class="text-success fw-bold text-decoration-underline pointer">Se connecter</span>
     </div>
   </div>
+</div>
+
+
+<style>
+  /* Background Gradient Animation */
+  .animated-bg {
+    background: linear-gradient(45deg, white, rgba(69, 194, 69, 0.9), rgba(0, 128, 0, 0.8));
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease-in-out infinite alternate;
+  }
+  
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  /* Card Scaling Animation */
+  .scale-in {
+    animation: scaleIn 1s ease-in-out;
+  }
+  
+  @keyframes scaleIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  
+  /* Button Pulsing Animation */
+  .pulse {
+    animation: pulseEffect 2s infinite;
+  }
+  
+  @keyframes pulseEffect {
+    0% { box-shadow: 0 0 10px rgba(0, 128, 0, 0.7); }
+    50% { box-shadow: 0 0 20px rgba(0, 128, 0, 1); }
+    100% { box-shadow: 0 0 10px rgba(0, 128, 0, 0.7); }
+  }
+  
+  /* Fade-in Effect for Text */
+  .fade-in {
+    animation: fadeIn 2s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  </style>
   
