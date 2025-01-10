@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center align-items-center vh-100 animated-bg">
-  <div class="card p-5 shadow-lg border-0 rounded-4 scale-in" style="width: 26rem;">
+  <div class="card p-5 shadow-lg border-3 rounded-4 scale-in" style="width: 26rem;">
       <h3 class="text-center mb-4 text-success fw-bold fade-in">Welcome Back!</h3>
       <form [formGroup]="formLogin" (ngSubmit)="handleLogin()">
           <!-- Email Field -->
@@ -49,9 +49,9 @@
 <style>
 /* Background Gradient Animation */
 .animated-bg {
-  background: linear-gradient(45deg, white, rgba(69, 194, 69, 0.9), rgba(0, 128, 0, 0.8));
+  background-color: #dedede;
   background-size: 400% 400%;
-  animation: gradientShift 8s ease-in-out infinite alternate;
+  /* animation: gradientShift 8s ease-in-out infinite alternate; */
 }
 
 @keyframes gradientShift {
