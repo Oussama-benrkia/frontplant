@@ -1,5 +1,5 @@
 export const environment = {
-    apiUrl: 'http://localhost:8088',
+    apiUrl: 'http://localhost:8080',
     userController: {
       user: '/api/user',
       actionUser: '/api/user/',

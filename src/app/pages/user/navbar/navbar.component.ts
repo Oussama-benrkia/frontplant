@@ -10,16 +10,15 @@ import { AuthService } from '../../../services/auth.service';
 export class NavbarComponent  {
   constructor(private router: Router,private authService:AuthService) {}
 
-  
+
   navItems = [
     { icon: 'flower2', label: 'Plants', action: () => this.plants() },
     { icon: 'journal-text', label: 'Articles', action: () => this.articles() },
     { icon: 'person-circle', label: 'Profile', action: () => this.profile() },
-    { icon: 'file-earmark-plus', label: 'New Article', action: () => this.createArticle() },
     // { icon: 'person-circle', label: 'Profile', action: () => this.profile() },
     { icon: 'box-arrow-right', label: 'Logout', action: () => this.logout() },
   ];
-  
+
 
   logout() {
     this.authService.logout().subscribe(
