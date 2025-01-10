@@ -1,10 +1,15 @@
-<div class="card shadow-lg border-0 rounded-4 overflow-hidden " >
-  <img  [src]="article.image ? article.image : 'assets/default.jpeg'"  class="card-img-top object-fit-cover" alt="{{article.title}}" style="height: 200px;">
+<div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+  <div class="text-center p-3">
+    <img [src]="article.image ? article.image : 'assets/article.png'"
+         class="img-fluid rounded"
+         alt="{{article.title}}"
+         style="max-width: 180px; height: auto;">
+  </div>
   <div class="card-body text-center bg-light">
       <h5 class="card-title fw-bold text-success">{{article.title}}</h5>
       <p class="card-text text-muted">{{article.content | slice:0:30}}...</p>
       <button class="btn btn-success w-100 mt-auto">View Details</button>
-    </div>
+  </div>
 </div>
 
 <style>
@@ -13,5 +18,13 @@
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
   }
-  
-  </style>
+
+  .card-body {
+    padding-top: 0;
+  }
+
+  .img-fluid {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+</style>

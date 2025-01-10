@@ -11,7 +11,8 @@ export class ProfileComponent implements OnInit {
   user: UserResponse | null = null;
   userData: any = {};
   isDisabled: boolean = true;
-  imageToCrop: string | null = null;  // Variable for the image preview
+  imageToCrop: string | null = null;
+  previewImage: string | undefined;  // Variable for the image preview
 
   constructor(private profileService: ProfileService) {}
 
@@ -73,5 +74,9 @@ export class ProfileComponent implements OnInit {
         console.error('Error updating user data:', error);
       }
     });
+  }
+  onImageSelect(event: any) {
+    this.previewImage = event.target.value;
+    this.userData.image = this.previewImage;
   }
 }

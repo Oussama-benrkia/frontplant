@@ -1,13 +1,13 @@
 <div class="container " *ngIf="article">
     <!-- Carte principale de l'article -->
     <div class="card mb-3 shadow-lg border-0 rounded-4 overflow-hidden">
-        <img   [src]="article.image ? article.image : 'assets/default.jpeg'"  class="card-img-top object-fit-cover" alt="{{article.title}}" style="height: 200px;">
-        
+
+
         <div class="card-body text-center bg-success text-white">
             <h2 class="card-title fw-bold">{{ article.title }}</h2>
             <p class="text-muted">Publié le : <span class="text-light">{{ article.date }}</span></p>
         </div>
-        
+
         <!-- Contenu de l'article -->
         <div class="container p-4">
             <div class="card shadow-sm border-0 rounded-3 p-4 bg-light">
